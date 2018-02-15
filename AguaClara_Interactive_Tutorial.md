@@ -268,11 +268,17 @@ $$ D = \frac{k_BT}{6\pi\eta r} $$
 
 ```python
 from scipy.constants import Boltzmann as kB_sc # I've imported the unitless value for kB from SciPy
-
+import math
 kB = kB_sc * u.joule / u.kelvin # I've given kB units for you in J/K; you can use the kB variable to give you Boltzmann's constant with units
 
 # Write your code here
+def Diffusion(kB,T,eta,r):
+  return (kB*T.to(u.degK))/(6*math.pi*eta*r.to(u.m))
 
+T = 40*u.degC
+r = 0.2*u.cm
+eta = pc.viscosity_dynamic(Temp)
+Diffusion(kB,T,eta,r)
 ```
 
 6. You have a pipe with a radius of 0.2 m with water flowing in it at 2 m<sup>3</sup>/s. You want to see how the Reynolds Number changes as viscosity changes due to a change in temperature from 0 to 200<sup>o</sup>C. Create a plot of Reynolds Number against Temperature in Kelvin to show a relationship. Make sure your plot has a title and labeled axes. You can use functions from `physchem` like `pc.re_pipe` and `pc.viscosity_kinematic`. *(Hint: Make an array of temperatures to input into the `pc.viscosity_kinematic` function)*.
